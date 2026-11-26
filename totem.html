@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Pluvial · Totem</title>
+<meta name="description" content="Pluvial: tela do totem de emergência para quem está sem celular (demonstração)." />
+<link rel="manifest" href="manifest.webmanifest" />
+<meta name="theme-color" content="#0b1f28" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='15' fill='%230e2833'/%3E%3Cpath d='M10 9v14M16 7v18M22 9v14' stroke='%23fbfcfc' stroke-width='3'/%3E%3C/svg%3E" />
+<link rel="preconnect" href="https://unpkg.com" />
+<link rel="preconnect" href="https://tiles.openfreemap.org" />
+<link rel="preload" href="assets/fonts/bricolage-grotesque.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="stylesheet" href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,800&family=Instrument+Sans:wght@400;600;700&display=swap" />
+<link rel="stylesheet" href="css/fonts.css" />
+<link rel="stylesheet" href="css/base.css" />
+<link rel="stylesheet" href="css/totem.css?v=20" />
+</head>
+<body>
+<header class="ttop">
+  <span class="brand">pluvial</span>
+  <div class="where"><b id="t-id">Totem</b><span id="t-local"></span></div>
+  <span class="link-chip" id="link" data-on="false">Conectando à central…</span>
+  <time class="clock" id="clock"></time>
+</header>
+
+<main class="tmain">
+  <section class="status" id="status" aria-live="assertive">
+    <p class="eyebrow" id="s-area"></p>
+    <h1 id="s-title">Sem alerta agora</h1>
+    <p class="s-text" id="s-text"></p>
+    <ol class="steps" id="s-steps"></ol>
+    <p class="sos-state" id="sos-state" hidden></p>
+  </section>
+
+  <section class="tmap" aria-label="Mapa com a rota até o abrigo">
+    <div id="map"></div>
+    <div class="map-msg" id="map-msg">Carregando o mapa…</div>
+    <div class="route-card" id="route-card">
+      <span class="eyebrow">Abrigo mais próximo</span>
+      <b id="r-name"></b>
+      <span id="r-dist"></span>
+    </div>
+  </section>
+</main>
+
+<nav class="actions-bar" aria-label="Ações do totem">
+  <button type="button" class="act sos" id="b-sos"><span class="ic" aria-hidden="true">SOS</span>Pedir socorro</button>
+  <button type="button" class="act" id="b-report"><span class="ic" aria-hidden="true">!</span>Relatar risco</button>
+  <button type="button" class="act" id="b-voice" aria-pressed="false"><span class="ic" aria-hidden="true">))</span><span id="b-voice-t">Ouvir orientações</span></button>
+  <button type="button" class="act" id="b-route"><span class="ic" aria-hidden="true">→</span>Ver rota</button>
+</nav>
+
+<footer class="tfoot">
+  <span>Emergência: <b>193</b> Bombeiros · <b>199</b> Defesa Civil · <b>192</b> SAMU</span>
+  <span class="fine-t">Demonstração com dados fictícios. Os alertas vêm da central aberta neste mesmo navegador.
+    <span data-offline></span>
+    <label class="pick">Totem <select id="pick" aria-label="Trocar de totem (demonstração)"></select></label>
+  </span>
+</footer>
+
+<dialog id="dlg-sos" aria-labelledby="sos-t">
+  <div class="dlg-pick" id="sos-pick">
+    <h2 id="sos-t">Pedir socorro</h2>
+    <p>Escolha o que está acontecendo. A central vê o pedido na hora.</p>
+    <button type="button" class="big red" data-kind="presos">Tem gente presa ou ferida</button>
+    <button type="button" class="big" data-kind="ajuda">Preciso de ajuda para sair</button>
+    <button type="button" class="ghost-t" data-close>Cancelar</button>
+  </div>
+  <div class="dlg-wait" id="sos-wait" hidden>
+    <span class="spinner" aria-hidden="true"></span>
+    <h2 id="sos-msg">Chamando a central…</h2>
+    <p id="sos-sub">Fique perto do totem.</p>
+    <button type="button" class="ghost-t" data-close>Fechar</button>
+  </div>
+</dialog>
+
+<dialog id="dlg-report" aria-labelledby="rep-t">
+  <div class="dlg-pick" id="rep-pick">
+    <h2 id="rep-t">O que você viu?</h2>
+    <p>Esses sinais podem aparecer antes de um deslizamento.</p>
+    <button type="button" class="big" data-tipo="rachadura em parede ou no chão">Rachadura em parede ou no chão</button>
+    <button type="button" class="big" data-tipo="árvore ou poste inclinando">Árvore ou poste inclinando</button>
+    <button type="button" class="big" data-tipo="água barrenta saindo do barranco">Água barrenta saindo do barranco</button>
+    <button type="button" class="big" data-tipo="estalos ou barulho na encosta">Estalos ou barulho na encosta</button>
+    <button type="button" class="ghost-t" data-close>Cancelar</button>
+  </div>
+  <div class="dlg-wait" id="rep-wait" hidden>
+    <span class="spinner" aria-hidden="true"></span>
+    <h2 id="rep-msg">Enviando…</h2>
+    <p id="rep-sub"></p>
+    <button type="button" class="ghost-t" data-close>Fechar</button>
+  </div>
+</dialog>
+
+<script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js" defer></script>
+<script src="js/risco.js?v=8" defer></script>
+<script src="js/estilo-mapa.js?v=8" defer></script>
+<script src="js/canal.js?v=8" defer></script>
+<script src="js/totem.js?v=9" defer></script>
+<script src="js/offline.js?v=20" defer></script>
+</body>
+</html>

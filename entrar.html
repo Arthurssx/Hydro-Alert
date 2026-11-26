@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Pluvial · Entrar</title>
+<meta name="description" content="Entre ou crie sua conta no Pluvial para avisar riscos, organizar mutirões e receber alertas do seu bairro." />
+<link rel="manifest" href="manifest.webmanifest" />
+<meta name="theme-color" content="#0e2833" />
+<link rel="icon" href="assets/icone.svg" type="image/svg+xml" />
+<link rel="preload" href="assets/fonts/bricolage-grotesque.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,800&family=Instrument+Sans:wght@400;600;700&display=swap" />
+<link rel="stylesheet" href="css/fonts.css" />
+<link rel="stylesheet" href="css/base.css" />
+<link rel="stylesheet" href="css/entrar.css?v=20" />
+</head>
+<body>
+<main class="auth">
+  <section class="pitch" aria-label="Sobre o Pluvial">
+    <a class="brand" href="index.html" aria-label="pluvial, página inicial">pluvial</a>
+    <div class="pitch-in">
+      <h1>Sua rua mais segura começa com você</h1>
+      <ul class="perks">
+        <li><span aria-hidden="true">⚠️</span><div><b>Avise riscos do seu bairro</b>Bueiro entupido, alagamento ou rachadura: os vizinhos confirmam e os sinais de deslizamento vão para a central.</div></li>
+        <li><span aria-hidden="true">📅</span><div><b>Organize mutirões</b>Limpeza de bueiros, plantio em encostas e rede de ajuda para quem precisa sair de casa.</div></li>
+        <li><span aria-hidden="true">🏆</span><div><b>Ganhe pontos e selos</b>Cada ação vale pontos para você e para o seu bairro no ranking.</div></li>
+      </ul>
+    </div>
+    <p class="pitch-foot">Em perigo agora? Não espere: ligue <a href="tel:193">193</a> (Bombeiros) ou <a href="tel:199">199</a> (Defesa Civil).</p>
+  </section>
+
+  <section class="panel">
+    <a class="back" href="index.html">← Voltar ao site</a>
+    <div class="card">
+      <div class="tabs" role="tablist" aria-label="Acesso">
+        <button type="button" role="tab" id="tab-entrar" aria-controls="form-entrar" aria-selected="true">Entrar</button>
+        <button type="button" role="tab" id="tab-criar" aria-controls="form-criar" aria-selected="false">Criar conta</button>
+      </div>
+
+      <form id="form-entrar" role="tabpanel" aria-labelledby="tab-entrar" novalidate>
+        <h2>Bem-vindo de volta</h2>
+        <p class="sub">Entre para participar da comunidade do seu bairro.</p>
+        <p class="err-box" data-err="geral" role="alert" hidden></p>
+        <label for="l-email">E-mail</label>
+        <input id="l-email" name="email" type="email" autocomplete="email" inputmode="email" required />
+        <label for="l-senha">Senha</label>
+        <div class="pass"><input id="l-senha" name="senha" type="password" autocomplete="current-password" required /><button type="button" class="eye" data-eye="l-senha" aria-label="Mostrar senha" aria-pressed="false">Mostrar</button></div>
+        <div class="line">
+          <label class="check"><input type="checkbox" name="manter" checked /> Manter conectado</label>
+          <button type="button" class="link" id="forgot">Esqueci minha senha</button>
+        </div>
+        <p class="note" id="forgot-note" hidden>Na versão real, enviaríamos um link para redefinir a senha no seu e-mail. Neste protótipo, sem servidor, crie uma nova conta ou use a conta de demonstração.</p>
+        <button class="primary wide" type="submit"><span>Entrar</span></button>
+        <div class="or"><span>ou</span></div>
+        <button type="button" class="ghost-btn" id="demo">Entrar com a conta de demonstração</button>
+        <p class="switch">Ainda não tem conta? <button type="button" class="link" data-go="criar">Crie agora</button></p>
+      </form>
+
+      <form id="form-criar" role="tabpanel" aria-labelledby="tab-criar" novalidate hidden>
+        <h2>Crie sua conta</h2>
+        <p class="sub">Leva menos de um minuto. Pedimos só o necessário.</p>
+        <p class="err-box" data-err="geral" role="alert" hidden></p>
+        <label for="r-nome">Apelido</label>
+        <input id="r-nome" name="nome" maxlength="24" autocomplete="nickname" required aria-describedby="r-nome-h" />
+        <small class="help" id="r-nome-h">É como os vizinhos vão te ver. Não precisa ser o nome completo.</small>
+        <small class="err" data-err="nome"></small>
+        <label for="r-email">E-mail</label>
+        <input id="r-email" name="email" type="email" autocomplete="email" inputmode="email" required />
+        <small class="err" data-err="email"></small>
+        <label for="r-senha">Senha</label>
+        <div class="pass"><input id="r-senha" name="senha" type="password" autocomplete="new-password" required aria-describedby="r-meter-t" /><button type="button" class="eye" data-eye="r-senha" aria-label="Mostrar senha" aria-pressed="false">Mostrar</button></div>
+        <div class="meter" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+        <small class="help" id="r-meter-t">Pelo menos 8 caracteres, com letras e números.</small>
+        <small class="err" data-err="senha"></small>
+        <label for="r-senha2">Confirme a senha</label>
+        <input id="r-senha2" name="senha2" type="password" autocomplete="new-password" required />
+        <small class="err" data-err="senha2"></small>
+        <label for="r-bairro">Seu bairro</label>
+        <select id="r-bairro" name="bairro" required><option value="">Escolha</option></select>
+        <small class="err" data-err="bairro"></small>
+        <label class="check"><input type="checkbox" name="alertas" checked /> Quero receber alertas de risco do meu bairro</label>
+        <label class="check"><input type="checkbox" name="termos" /> Li e aceito os <button type="button" class="link" id="open-terms">termos e a política de privacidade</button></label>
+        <small class="err" data-err="termos"></small>
+        <button class="primary wide" type="submit"><span>Criar conta</span></button>
+        <p class="switch">Já tem conta? <button type="button" class="link" data-go="entrar">Entrar</button></p>
+      </form>
+    </div>
+    <p class="proto">Protótipo acadêmico: a conta fica só neste navegador e a senha é guardada com criptografia, nunca em texto. Na versão real, o login seria feito por um servidor seguro, com confirmação por e-mail.</p>
+  </section>
+</main>
+
+<dialog id="terms" aria-labelledby="terms-t">
+  <h2 id="terms-t">Termos e privacidade</h2>
+  <div class="terms-body">
+    <p><b>O que guardamos:</b> apelido, e-mail, bairro e se você quer receber alertas. Não pedimos nome completo, CPF, telefone nem endereço.</p>
+    <p><b>Para que usamos:</b> identificar você na comunidade, mostrar avisos e mutirões do seu bairro e calcular os pontos do ranking.</p>
+    <p><b>O que você publica</b> fica visível para a comunidade. Não publique dados pessoais nem fotos de pessoas.</p>
+    <p><b>Seus direitos (LGPD):</b> você pode ver, corrigir e excluir sua conta a qualquer momento pelo seu perfil. Ao excluir, apagamos a conta e suas publicações.</p>
+    <p><b>Emergência:</b> a comunidade não substitui os serviços de emergência. Em perigo, ligue 193 ou 199.</p>
+    <p><b>Neste protótipo,</b> tudo fica só neste navegador; nada é enviado a servidores.</p>
+  </div>
+  <form method="dialog"><button class="primary wide">Entendi</button></form>
+</dialog>
+<div id="toast" role="status"></div>
+<script src="js/auth.js?v=1" defer></script>
+<script src="js/comunidade-dados.js?v=20" defer></script>
+<script src="js/entrar.js?v=1" defer></script>
+<script src="js/offline.js?v=20" defer></script>
+</body>
+</html>

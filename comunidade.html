@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Pluvial · Comunidade</title>
+<meta name="description" content="Pluvial: rede dos moradores de Juiz de Fora para prevenir alagamentos e deslizamentos, com grupos de bairro, mutirões e ranking." />
+<link rel="manifest" href="manifest.webmanifest" />
+<meta name="theme-color" content="#0e2833" />
+<link rel="icon" href="assets/icone.svg" type="image/svg+xml" />
+<script>document.documentElement.classList.add("js")</script>
+<link rel="preload" href="assets/fonts/bricolage-grotesque.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,800&family=Instrument+Sans:wght@400;600;700&display=swap" />
+<link rel="stylesheet" href="css/fonts.css" />
+<link rel="stylesheet" href="css/base.css" />
+<link rel="stylesheet" href="css/comunidade.css?v=21" />
+</head>
+<body>
+<a class="skip" href="#view">Ir para as publicações</a>
+
+<header class="sbar">
+  <a class="brand" href="index.html" aria-label="pluvial, página inicial">pluvial</a>
+  <label class="search"><span class="sr">Buscar na comunidade</span><input id="q" type="search" placeholder="Buscar na comunidade" autocomplete="off" /></label>
+  <nav class="tabs-top" aria-label="Comunidade">
+    <a href="#/feed" data-nav="feed" title="Início"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11 12 4l9 7v9h-6v-6H9v6H3z"/></svg><span>Início</span></a>
+    <a href="#/grupos" data-nav="grupos" title="Grupos de bairro"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="8" cy="9" r="3.2"/><circle cx="16.5" cy="9.5" r="2.7"/><path d="M2.5 19c.6-3.4 2.8-5.2 5.5-5.2s4.9 1.8 5.5 5.2zM13.8 19c.3-1.9-.3-3.6-1.4-4.7.9-.6 2-.9 3.1-.9 2.4 0 4.3 1.6 4.9 5.6z"/></svg><span>Grupos</span></a>
+    <a href="#/eventos" data-nav="eventos" title="Mutirões"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 2h2v2h6V2h2v2h3v17H4V4h3zm-1 7v10h12V9z"/></svg><span>Mutirões</span></a>
+    <a href="#/ranking" data-nav="ranking" title="Ranking"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 21v-8h5v8zm6.5 0V4h5v17zM16 21v-11h5v11z"/></svg><span>Ranking</span></a>
+  </nav>
+  <div class="sbar-r">
+    <a class="to-central" href="central.html">Central de risco</a>
+    <div class="bell-wrap">
+      <button class="bell" id="bell" type="button" aria-haspopup="true" aria-expanded="false" aria-label="Notificações"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22a2.5 2.5 0 0 0 2.4-2h-4.8A2.5 2.5 0 0 0 12 22zm7-6V11a7 7 0 0 0-5.5-6.8V3a1.5 1.5 0 0 0-3 0v1.2A7 7 0 0 0 5 11v5l-2 2v1h18v-1z"/></svg><b id="bell-n" hidden>0</b></button>
+      <div class="notifs" id="notifs" hidden>
+        <div class="notifs-h"><b>Notificações</b><button type="button" class="link" id="read-all">Marcar todas como lidas</button></div>
+        <ol id="notif-list"></ol>
+      </div>
+    </div>
+    <a class="login-btn" id="login-btn" href="entrar.html" hidden>Entrar</a>
+    <button class="me-btn" id="me-btn" type="button" aria-label="Meu perfil"></button>
+  </div>
+</header>
+
+<div class="official" id="official" hidden role="alert"></div>
+
+<div class="layout">
+  <aside class="left" aria-label="Atalhos">
+    <button type="button" class="me-line" id="me-line"></button>
+    <nav class="short" aria-label="Atalhos da comunidade">
+      <a href="#/feed" data-nav="feed"><i>🏠</i>Início</a>
+      <a href="#/grupos" data-nav="grupos"><i>👥</i>Grupos de bairro</a>
+      <a href="#/eventos" data-nav="eventos"><i>📅</i>Mutirões</a>
+      <a href="#/ajuda" data-nav="ajuda"><i>🤝</i>Rede de ajuda</a>
+      <a href="#/avisos" data-nav="avisos"><i>⚠️</i>Avisos de risco</a>
+      <a href="#/salvos" data-nav="salvos"><i>🔖</i>Salvos</a>
+      <a href="#/beneficios" data-nav="beneficios"><i>🎁</i>Trocar pontos</a>
+      <a href="#/ranking" data-nav="ranking"><i>🏆</i>Ranking e missões</a>
+    </nav>
+    <h2 class="left-t">Seus grupos</h2>
+    <ul class="my-groups" id="my-groups"></ul>
+    <h2 class="left-t">No Pluvial</h2>
+    <nav class="short small" aria-label="Site">
+      <a href="central.html"><i>🛰️</i>Central de risco</a>
+      <a href="totem.html?id=T-02"><i>🪧</i>Totem de emergência</a>
+      <a href="painel.html"><i>🕳️</i>Painel dos bueiros</a>
+      <a href="index.html"><i>🌧️</i>Página inicial</a>
+    </nav>
+    <p class="left-fine">Protótipo. Os outros moradores e as publicações iniciais são fictícios; o que você faz fica só neste navegador. <span data-offline></span></p>
+  </aside>
+
+  <main class="center" id="view" tabindex="-1"></main>
+
+  <aside class="right" aria-label="Painel lateral">
+    <section class="rbox">
+      <div class="rbox-h"><h2>Próximos mutirões</h2><a href="#/eventos">Ver todos</a></div>
+      <ol class="mini-events" id="mini-events"></ol>
+    </section>
+    <section class="rbox">
+      <div class="rbox-h"><h2>Missões da semana</h2><span class="muted">+<span id="bonus"></span> cada</span></div>
+      <ul class="missions" id="missions"></ul>
+    </section>
+    <section class="rbox">
+      <div class="rbox-h"><h2>Top do mês</h2><a href="#/ranking">Ranking</a></div>
+      <ol class="mini-rank" id="mini-rank"></ol>
+    </section>
+    <section class="rbox">
+      <div class="rbox-h"><h2>Vizinhos ativos</h2></div>
+      <ul class="online" id="online"></ul>
+    </section>
+  </aside>
+</div>
+
+<nav class="bottom-nav" aria-label="Comunidade (celular)">
+  <a href="#/feed" data-nav="feed"><i>🏠</i>Início</a>
+  <a href="#/grupos" data-nav="grupos"><i>👥</i>Grupos</a>
+  <a href="#/eventos" data-nav="eventos"><i>📅</i>Mutirões</a>
+  <a href="#/ranking" data-nav="ranking"><i>🏆</i>Ranking</a>
+  <a href="#/menu" data-nav="menu"><i>☰</i>Mais</a>
+</nav>
+
+<dialog id="dlg-post" aria-labelledby="dp-t">
+  <form id="composer" autocomplete="off">
+    <div class="dlg-h"><h2 id="dp-t">Criar publicação</h2><button type="button" class="x" data-close aria-label="Fechar">×</button></div>
+    <div class="dlg-who" id="dp-who"></div>
+    <fieldset class="types">
+      <legend class="sr">Tipo de publicação</legend>
+      <label><input type="radio" name="type" value="aviso" checked /><span>⚠️ Aviso de risco</span></label>
+      <label><input type="radio" name="type" value="mutirao" /><span>📅 Mutirão</span></label>
+      <label><input type="radio" name="type" value="ajuda" /><span>🤝 Rede de ajuda</span></label>
+      <label><input type="radio" name="type" value="dica" /><span>💡 Dica</span></label>
+    </fieldset>
+    <div class="row" data-for="aviso"><label>O que você viu<select name="sub"></select></label></div>
+    <div class="row two" data-for="mutirao" hidden>
+      <label>Quando<input name="quando" maxlength="40" placeholder="Ex.: sábado, 8h" /></label>
+      <label>Onde<input name="onde" maxlength="60" placeholder="Ponto de encontro" /></label>
+    </div>
+    <label>Grupo do bairro<select name="bairro"></select></label>
+    <textarea name="text" rows="4" maxlength="500" required aria-label="Mensagem" placeholder="O que está acontecendo no seu bairro?"></textarea>
+    <div class="photo-prev" id="photo-prev" hidden><img alt="Prévia da foto" /><button type="button" class="x" id="photo-x" aria-label="Remover foto">×</button></div>
+    <div class="add-bar">
+      <span>Adicionar</span>
+      <label class="add-photo"><input type="file" accept="image/*" id="photo" />📷 Foto</label>
+    </div>
+    <p class="hint" id="hint"></p>
+    <button class="primary wide" type="submit">Publicar</button>
+  </form>
+</dialog>
+
+<dialog id="dlg-profile" class="profile-dlg" aria-label="Perfil"></dialog>
+<dialog id="dlg-join" aria-labelledby="dj-t">
+  <form id="join-form">
+    <div class="dlg-h"><h2 id="dj-t">Editar perfil</h2><button type="button" class="x" data-close aria-label="Fechar">×</button></div>
+    <p class="muted">Seu apelido e bairro aparecem para os vizinhos. E-mail e senha ficam privados.</p>
+    <label>Apelido<input name="nome" maxlength="24" required placeholder="Como os vizinhos te chamam" /></label>
+    <label>Bairro<select name="bairro"></select></label>
+    <button class="primary wide" type="submit">Salvar</button>
+  </form>
+</dialog>
+<div id="toast" role="status"></div>
+<script src="js/canal.js?v=9" defer></script>
+<script src="js/auth.js?v=1" defer></script>
+<script src="js/comunidade-dados.js?v=20" defer></script>
+<script src="js/comunidade.js?v=20" defer></script>
+<script src="js/offline.js?v=20" defer></script>
+</body>
+</html>

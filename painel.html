@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Pluvial · Bueiros</title>
+<meta name="description" content="Pluvial: rede de bueiros de Juiz de Fora, com nível, chuva real, previsão, relatos dos moradores e rota de limpeza (demonstração)." />
+<link rel="manifest" href="manifest.webmanifest" />
+<meta name="theme-color" content="#0e2833" />
+<link rel="icon" href="assets/icone.svg" type="image/svg+xml" />
+<script>document.documentElement.classList.add("js")</script>
+<link rel="preconnect" href="https://unpkg.com" />
+<link rel="preconnect" href="https://tiles.openfreemap.org" />
+<link rel="preload" href="assets/fonts/bricolage-grotesque.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="stylesheet" href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,800&family=Instrument+Sans:wght@400;600;700&display=swap" />
+<link rel="stylesheet" href="css/fonts.css" />
+<link rel="stylesheet" href="css/base.css" />
+<link rel="stylesheet" href="css/painel.css?v=20" />
+</head>
+<body>
+<a class="skip" href="#fila">Ir para a fila de limpeza</a>
+<header class="ptop">
+  <a class="brand" href="index.html" aria-label="pluvial, página inicial">pluvial</a>
+  <nav aria-label="Principal">
+    <a href="index.html">Início</a>
+    <a href="comunidade.html">Comunidade</a>
+    <a href="painel.html" aria-current="page">Bueiros</a>
+    <a href="central.html">Central de risco</a>
+    <a href="totem.html?id=T-02">Totem</a>
+  </nav>
+  <a class="acc" id="acc" href="entrar.html?volta=painel.html">Entrar</a>
+</header>
+
+<main>
+  <section class="phead">
+    <div class="phead-in">
+      <div>
+        <p class="kick">Rede de drenagem · Juiz de Fora · demonstração</p>
+        <h1>Onde limpar primeiro</h1>
+        <p class="lead">40 bueiros com sensor, a chuva real das últimas horas e a prevista, e os avisos dos moradores, juntos numa fila de limpeza.</p>
+      </div>
+      <div class="rainbox" aria-live="polite">
+        <p class="rb-t">Chuva em Juiz de Fora</p>
+        <div class="rb-nums">
+          <div><strong id="r-last">—</strong><span>últimas 3 h</span></div>
+          <div><strong id="r-next">—</strong><span>próximas 6 h</span></div>
+        </div>
+        <svg class="rb-bars" id="r-bars" viewBox="0 0 360 60" preserveAspectRatio="none" aria-hidden="true"></svg>
+        <p class="rb-src" id="r-src">Consultando o Open-Meteo…</p>
+        <label class="sim"><span>Simular temporal <output id="sim-out">desligado</output></span><input type="range" id="sim" min="0" max="15" step="1" value="0" /></label>
+      </div>
+    </div>
+  </section>
+
+  <section class="kpis" aria-label="Resumo">
+    <button type="button" class="kpi crit" data-f="Crítico"><small>Risco de transbordar</small><strong id="k-crit">0</strong><span>bueiros críticos</span></button>
+    <button type="button" class="kpi warn" data-f="Atenção"><small>Atenção</small><strong id="k-warn">0</strong><span>enchendo</span></button>
+    <button type="button" class="kpi rel" data-f="relatos"><small>Avisos dos moradores</small><strong id="k-rel">0</strong><span>sem resolver</span></button>
+    <div class="kpi ok"><small>Limpos neste mês</small><strong id="k-month">0</strong><span id="k-wait">—</span></div>
+  </section>
+
+  <div class="flood" id="flood" hidden role="alert"></div>
+
+  <section class="desk">
+    <article class="card mapcard">
+      <div class="map-box">
+        <div id="map" role="region" aria-label="Mapa com os bueiros de Juiz de Fora"></div>
+        <div class="map-msg" id="map-msg">Carregando o mapa…</div>
+        <ul class="legend" aria-label="Legenda">
+          <li><i style="--c:#c4412c"></i>Crítico</li><li><i style="--c:#a87400"></i>Atenção</li><li><i style="--c:#1f8a63"></i>Normal</li><li><i style="--c:#6b7f89"></i>Sem sinal</li><li><i class="pin">!</i>Aviso de morador</li>
+        </ul>
+      </div>
+      <div class="os" id="os" aria-labelledby="os-t">
+        <div class="os-h"><h2 id="os-t">Ordem de serviço de hoje</h2><span id="os-count">Nenhum bueiro na rota</span></div>
+        <p class="os-hint" id="os-hint">Marque bueiros na fila (ou clique num ponto do mapa) e gere a rota da equipe de limpeza.</p>
+        <div class="os-btns">
+          <button type="button" class="primary" id="os-auto">Selecionar os 6 mais urgentes</button>
+          <button type="button" class="primary dark" id="os-go" disabled>Gerar rota de limpeza</button>
+          <button type="button" class="link" id="os-clear" hidden>Limpar seleção</button>
+        </div>
+        <div class="os-result" id="os-result" hidden></div>
+      </div>
+    </article>
+
+    <article class="card queue" id="fila" aria-labelledby="fila-t">
+      <div class="q-h">
+        <h2 id="fila-t">Fila de limpeza</h2>
+        <span class="muted" id="q-count"></span>
+      </div>
+      <div class="q-filters">
+        <input type="search" id="q" placeholder="Buscar rua ou bairro" aria-label="Buscar rua ou bairro" />
+        <select id="q-b" aria-label="Filtrar por bairro"><option value="">Todos os bairros</option></select>
+        <select id="q-s" aria-label="Filtrar por situação"><option value="">Todas as situações</option><option>Crítico</option><option>Atenção</option><option>Normal</option><option>Sem dados</option><option value="relatos">Com aviso de morador</option></select>
+      </div>
+      <ol class="rows" id="rows"></ol>
+      <p class="empty" id="empty" hidden>Nenhum bueiro com esses filtros.</p>
+    </article>
+  </section>
+
+  <section class="stats-sec" aria-labelledby="st-t">
+    <h2 id="st-t">Como a rede está indo</h2>
+    <div class="stats-grid">
+      <article class="card"><h3>Avisos por bairro</h3><ol class="bars" id="by-bairro"></ol></article>
+      <article class="card"><h3>Últimas limpezas</h3><ol class="hist" id="hist"></ol></article>
+      <article class="card how">
+        <h3>Como o sensor mede</h3>
+        <p>Um sensor de distância barato fica na tampa do bueiro e mede quanto espaço ainda sobra lá dentro. Com isso calculamos o <b>entupimento</b> (lixo, folhas, terra), que cresce um pouco a cada dia.</p>
+        <p>O <b>nível</b> junta o entupimento com a <b>chuva das últimas 3 horas</b>. Acima de 85% o bueiro pode transbordar; entre 60% e 85%, pede atenção.</p>
+        <p>A <b>previsão</b> repete a conta com a chuva prevista para as próximas 12 horas.</p>
+        <a class="pill-mini" href="index.html#sensor">Ver o sensor em ação</a>
+      </article>
+    </div>
+  </section>
+</main>
+
+<dialog id="dlg" class="bdlg" aria-labelledby="d-rua"></dialog>
+<footer class="pfoot"><span><b>pluvial</b> · drenagem</span><span>Bueiros, leituras e equipe são fictícios; as ruas e a chuva são reais (Open-Meteo, CC BY 4.0). Em emergência, ligue 199 ou 193. <span data-offline></span></span></footer>
+<div id="toast" role="status"></div>
+<script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js" defer></script>
+<script src="js/canal.js?v=9" defer></script>
+<script src="js/auth.js?v=1" defer></script>
+<script src="js/comunidade-dados.js?v=20" defer></script>
+<script src="js/estilo-mapa.js?v=8" defer></script>
+<script src="js/bueiros.js?v=20" defer></script>
+<script src="js/painel.js?v=3" defer></script>
+<script src="js/offline.js?v=20" defer></script>
+</body>
+</html>
