@@ -599,7 +599,10 @@ button.abr:active,
   padding: 2px 8px;
   border-radius: 6px;
   background: var(--sky);
-  font: 600 0.8em ui-monospace, Menlo, monospace;
+  font:
+    600 0.8em ui-monospace,
+    Menlo,
+    monospace;
   color: var(--rain);
 }
 
