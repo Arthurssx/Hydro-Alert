@@ -2,7 +2,7 @@
 
 Protótipo acadêmico do Challenge FIAP 2026. Moradores, sensores e Defesa Civil de Juiz de Fora trabalham juntos para prevenir alagamentos e deslizamentos.
 
-A documentação completa está em `docs/Pluvial-Documentacao.pdf`: os fluxos, os componentes, o fluxograma e as telas. O arquivo para o Figma está em `figma/Pluvial-design-system.svg`.
+A documentação completa (os fluxos, os componentes, o fluxograma e as telas) é entregue em PDF pelo Teams. O protótipo está publicado em https://pluvialp.vercel.app/ e o design system está no Figma: https://www.figma.com/design/CS8yTTLClfma1fClkbJIxz
 
 ## Como executar
 
