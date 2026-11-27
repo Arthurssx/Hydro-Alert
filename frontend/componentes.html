@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Pluvial · Componentes</title>
+<meta name="description" content="Pluvial: design system com os componentes do site em todos os estados, lado a lado." />
+<meta name="theme-color" content="#0e2833" />
+<link rel="icon" href="assets/icone.svg" type="image/svg+xml" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,800&family=Instrument+Sans:wght@400;600;700&display=swap" />
+<link rel="stylesheet" href="css/componentes.css" />
+</head>
+<body class="mor">
+<a class="skip" href="#conteudo">Ir para o conteúdo</a>
+<header class="mtop">
+  <a class="brand" href="index.html" aria-label="pluvial, página inicial">pluvial</a>
+  <nav aria-label="Principal"><a href="index.html">Início</a><a href="morador.html">Painel do morador</a><a href="autoridades.html">Autoridades</a><a href="componentes.html" aria-current="page">Componentes</a></nav>
+</header>
+
+<main id="conteudo" class="mwrap comp-wrap" tabindex="-1">
+  <h1>Design system Pluvial</h1>
+  <p class="lead">Os componentes usados no site, cada um em todos os estados, lado a lado. Os estados de hover, foco e ativo estão congelados com classes só para esta página; nas outras páginas eles aparecem com o mouse e o teclado.</p>
+  <nav class="indice" aria-label="Nesta página">
+    <a href="#tokens">Tokens</a><a href="#c-botao">Botão</a><a href="#c-campo">Campo de texto</a><a href="#c-selecao">Seleção</a><a href="#c-cartao">Cartão</a><a href="#c-form">Formulário de ocorrência</a>
+  </nav>
+
+  <section class="comp" aria-labelledby="tokens">
+    <h2 id="tokens">Tokens</h2>
+    <ul class="swatches">
+      <li><i style="background:#0e2833"></i><b>--ink</b><span>#0E2833 · texto, topo</span></li>
+      <li><i style="background:#1d6f94"></i><b>--rain</b><span>#1D6F94 · links, foco</span></li>
+      <li><i style="background:#f5c518"></i><b>--signal</b><span>#F5C518 · botão primário</span></li>
+      <li><i style="background:#fbfcfc; border:1px solid #cfe0e8"></i><b>--paper</b><span>#FBFCFC · fundo</span></li>
+      <li><i style="background:#e6f0f4"></i><b>--sky</b><span>#E6F0F4 · etiquetas</span></li>
+      <li><i style="background:#4a606b"></i><b>--muted</b><span>#4A606B · texto de apoio</span></li>
+      <li><i style="background:#c4412c"></i><b>--crit</b><span>#C4412C · erro, lotado</span></li>
+      <li><i style="background:#1f8a63"></i><b>--ok</b><span>#1F8A63 · verificado</span></li>
+    </ul>
+    <div class="tipos">
+      <p class="t-display">Bricolage Grotesque 800 · títulos</p>
+      <p class="t-text">Instrument Sans 400/600/700 · texto, rótulos e botões</p>
+      <p class="t-meta">Cantos: campo 10px · cartão 14–18px · pílula 999px. Foco: anel azul de 3–4px.</p>
+    </div>
+  </section>
+
+  <section class="comp" aria-labelledby="c-botao">
+    <h2 id="c-botao">1. Botão <code>Botão/Primário</code></h2>
+    <p class="desc">Ação principal da tela (Enviar relato, Registrar ocorrência, Definir nível). Mínimo de 48px de altura.</p>
+    <div class="estados">
+      <figure><div class="palco"><button type="button" class="primary">Registrar</button></div><figcaption>Padrão</figcaption></figure>
+      <figure><div class="palco"><button type="button" class="primary is-hover" tabindex="-1">Registrar</button></div><figcaption>Hover</figcaption></figure>
+      <figure><div class="palco"><button type="button" class="primary is-focus" tabindex="-1">Registrar</button></div><figcaption>Foco</figcaption></figure>
+      <figure><div class="palco"><button type="button" class="primary is-active" tabindex="-1">Registrar</button></div><figcaption>Ativo</figcaption></figure>
+      <figure><div class="palco"><button type="button" class="primary" disabled>Registrar</button></div><figcaption>Desabilitado</figcaption></figure>
+    </div>
+    <h3>Variação <code>Botão/Secundário</code></h3>
+    <div class="estados">
+      <figure><div class="palco"><button type="button" class="ghost">Cancelar</button></div><figcaption>Padrão</figcaption></figure>
+      <figure><div class="palco"><button type="button" class="ghost is-hover" tabindex="-1">Cancelar</button></div><figcaption>Hover</figcaption></figure>
+      <figure><div class="palco"><button type="button" class="ghost is-focus" tabindex="-1">Cancelar</button></div><figcaption>Foco</figcaption></figure>
+      <figure><div class="palco"><button type="button" class="ghost is-active" tabindex="-1">Cancelar</button></div><figcaption>Ativo</figcaption></figure>
+      <figure><div class="palco"><button type="button" class="ghost" disabled>Cancelar</button></div><figcaption>Desabilitado</figcaption></figure>
+    </div>
+  </section>
+
+  <section class="comp" aria-labelledby="c-campo">
+    <h2 id="c-campo">2. Campo de texto <code>Campo/Texto</code></h2>
+    <p class="desc">Rótulo sempre visível, ajuda e erro logo abaixo. O erro usa borda vermelha, símbolo e texto, <code>aria-invalid</code> e <code>aria-describedby</code>.</p>
+    <div class="estados">
+      <figure><div class="palco"><label for="t1">Local</label><input id="t1" placeholder="Rua ou referência" /></div><figcaption>Padrão</figcaption></figure>
+      <figure><div class="palco"><label for="t2">Local</label><input id="t2" class="campo is-hover" placeholder="Rua ou referência" tabindex="-1" /></div><figcaption>Hover</figcaption></figure>
+      <figure><div class="palco"><label for="t3">Local</label><input id="t3" class="campo is-focus" value="Rua Batista" tabindex="-1" /></div><figcaption>Foco</figcaption></figure>
+      <figure><div class="palco"><label for="t4">Local</label><input id="t4" value="Rua Batista de Oliveira, 300" /></div><figcaption>Preenchido</figcaption></figure>
+      <figure><div class="palco"><label for="t5">Local</label><input id="t5" value="R" aria-invalid="true" aria-describedby="t5-e" /><small class="erro-campo" id="t5-e">Informe a rua ou uma referência.</small></div><figcaption>Erro</figcaption></figure>
+      <figure><div class="palco"><label for="t6">Local</label><input id="t6" value="Centro" disabled /></div><figcaption>Desabilitado</figcaption></figure>
+    </div>
+  </section>
+
+  <section class="comp" aria-labelledby="c-selecao">
+    <h2 id="c-selecao">3. Seleção <code>Campo/Seleção</code></h2>
+    <p class="desc">Lista de opções (encosta, nível, filtros). Os níveis de alerta levam símbolo além da cor.</p>
+    <div class="estados">
+      <figure><div class="palco"><label for="s1">Encosta</label><select id="s1"><option>Escolha</option><option>Dom Bosco</option></select></div><figcaption>Padrão</figcaption></figure>
+      <figure><div class="palco"><label for="s2">Encosta</label><select id="s2" class="campo is-hover" tabindex="-1"><option>Escolha</option></select></div><figcaption>Hover</figcaption></figure>
+      <figure><div class="palco"><label for="s3">Encosta</label><select id="s3" class="campo is-focus" tabindex="-1"><option>Dom Bosco</option></select></div><figcaption>Foco</figcaption></figure>
+      <figure><div class="palco"><label for="s4">Nível</label><select id="s4"><option>■ Alerta máximo</option></select></div><figcaption>Selecionado</figcaption></figure>
+      <figure><div class="palco"><label for="s5">Encosta</label><select id="s5" aria-invalid="true" aria-describedby="s5-e"><option>Escolha</option></select><small class="erro-campo" id="s5-e">Escolha uma encosta.</small></div><figcaption>Erro</figcaption></figure>
+      <figure><div class="palco"><label for="s6">Encosta</label><select id="s6" disabled><option>Dom Bosco</option></select></div><figcaption>Desabilitado</figcaption></figure>
+    </div>
+  </section>
+
+  <section class="comp" aria-labelledby="c-cartao">
+    <h2 id="c-cartao">4. Cartão <code>Cartão/Abrigo</code></h2>
+    <p class="desc">Item clicável da lista de abrigos: seleciona o abrigo no mapa. A situação aparece em texto, não só em cor.</p>
+    <div class="estados cartoes">
+      <figure><div class="palco"><button type="button" class="abr" data-e="Disponível"><b>Escola municipal</b><span class="abr-tag">Disponível</span><small>77 de 220 vagas ocupadas</small></button></div><figcaption>Padrão</figcaption></figure>
+      <figure><div class="palco"><button type="button" class="abr is-hover" data-e="Disponível" tabindex="-1"><b>Escola municipal</b><span class="abr-tag">Disponível</span><small>77 de 220 vagas ocupadas</small></button></div><figcaption>Hover</figcaption></figure>
+      <figure><div class="palco"><button type="button" class="abr is-focus" data-e="Disponível" tabindex="-1"><b>Escola municipal</b><span class="abr-tag">Disponível</span><small>77 de 220 vagas ocupadas</small></button></div><figcaption>Foco</figcaption></figure>
+      <figure><div class="palco"><button type="button" class="abr is-active" data-e="Disponível" tabindex="-1"><b>Escola municipal</b><span class="abr-tag">Disponível</span><small>77 de 220 vagas ocupadas</small></button></div><figcaption>Ativo</figcaption></figure>
+      <figure><div class="palco"><button type="button" class="abr is-selected" data-e="Disponível" aria-pressed="true"><b>Escola municipal</b><span class="abr-tag">Disponível</span><small>77 de 220 vagas ocupadas</small></button></div><figcaption>Selecionado</figcaption></figure>
+      <figure><div class="palco"><button type="button" class="abr" data-e="Lotado"><b>Escola estadual</b><span class="abr-tag">Lotado</span><small>180 de 180 vagas ocupadas</small></button></div><figcaption>Lotado (alerta)</figcaption></figure>
+    </div>
+  </section>
+
+  <section class="comp" aria-labelledby="c-form">
+    <h2 id="c-form">5. Composto <code>Formulário/Ocorrência</code></h2>
+    <p class="desc">Junta Seleção, Campo de texto e Botão. O botão fica desabilitado até haver texto; o erro aparece junto ao campo; a confirmação aparece na própria tela.</p>
+    <div class="estados forms">
+      <figure><div class="palco">
+        <label for="f1">O que você viu</label><select id="f1"><option>Alagamento</option></select>
+        <label for="f1t">Descrição</label><textarea id="f1t" rows="2" placeholder="Onde fica e o que aconteceu?"></textarea>
+        <button type="button" class="primary" disabled>Registrar ocorrência</button>
+      </div><figcaption>Vazio (botão desabilitado)</figcaption></figure>
+      <figure><div class="palco">
+        <label for="f2">O que você viu</label><select id="f2"><option>Alagamento</option></select>
+        <label for="f2t">Descrição</label><textarea id="f2t" rows="2" class="campo is-focus" tabindex="-1">Rua da escola alagada</textarea>
+        <button type="button" class="primary">Registrar ocorrência</button>
+      </div><figcaption>Preenchendo</figcaption></figure>
+      <figure><div class="palco">
+        <label for="f3">O que você viu</label><select id="f3"><option>Alagamento</option></select>
+        <label for="f3t">Descrição</label><textarea id="f3t" rows="2" aria-invalid="true" aria-describedby="f3e">Rua</textarea>
+        <small class="erro-campo" id="f3e">Descreva com pelo menos 10 caracteres.</small>
+        <button type="button" class="primary">Registrar ocorrência</button>
+      </div><figcaption>Erro</figcaption></figure>
+      <figure><div class="palco">
+        <label for="f4">O que você viu</label><select id="f4"><option>Alagamento</option></select>
+        <label for="f4t">Descrição</label><textarea id="f4t" rows="2" placeholder="Onde fica e o que aconteceu?"></textarea>
+        <button type="button" class="primary" disabled>Registrar ocorrência</button>
+        <p class="ok-msg" role="status">Ocorrência registrada (simulação).</p>
+      </div><figcaption>Enviado (sucesso)</figcaption></figure>
+    </div>
+  </section>
+</main>
+
+<footer class="mfoot">
+  Design system do protótipo Pluvial · <a href="index.html">Início</a> · <a href="morador.html">Painel do morador</a> · <a href="autoridades.html">Autoridades</a>
+</footer>
+</body>
+</html>

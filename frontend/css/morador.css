@@ -1,0 +1,207 @@
+/* ==========================================================
+   Painel do Morador (morador.html)
+   O topo, o conteúdo, os cartões e as listas ficam em base.css.
+   ========================================================== */
+
+/* Nota curta abaixo de um título */
+.small-note {
+  display: block;
+  margin-top: 6px;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+/* Linha que diz quem definiu o nível (Defesa Civil ou simulação) */
+.nivel-oficial {
+  margin-top: 10px;
+  font-size: 15px;
+  color: var(--muted);
+}
+
+/* Banner de alerta máximo: substitui o alert() e fica no topo da página */
+.banner-max {
+  margin-top: 16px;
+  padding: 16px 18px;
+  border-radius: 14px;
+  background: var(--crit);
+  color: #fff;
+  font-weight: 600;
+}
+.banner-max b {
+  display: block;
+  font: 800 1.35rem var(--display);
+}
+.banner-max a {
+  color: #fff;
+  font-weight: 800;
+}
+.banner-max :focus-visible {
+  outline-color: #fff;
+}
+
+/* Caixa do alerta: a faixa lateral muda de cor conforme o nível (--c) */
+.alerta {
+  --c: #1f7a57;
+  margin-top: 16px;
+  padding: 14px 16px;
+  border-radius: 14px;
+  background: #eef3f5;
+  border-left: 8px solid var(--c);
+}
+.alerta h3 {
+  margin: 6px 0 0;
+  color: var(--ink);
+}
+.alerta ol {
+  margin: 8px 0;
+  padding-left: 20px;
+}
+
+/* Etiqueta do nível: cor + símbolo + texto (não depende só da cor) */
+.nivel-tag {
+  display: inline-block;
+  padding: 3px 12px;
+  border-radius: 99px;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+/* Abrigo indicado dentro do alerta */
+.abrigo-box {
+  margin-top: 10px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: #fff;
+}
+.abrigo-box.trocado {
+  border: 2px solid var(--crit);
+}
+.abrigo-box p {
+  margin: 4px 0;
+}
+
+/* ----- Mapa ilustrativo ----- */
+.mapa-wrap {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  margin-top: 12px;
+}
+.mapa {
+  width: 100%;
+  height: auto;
+  border-radius: 14px;
+  background: #e7f0f3;
+}
+.mapa .m-rio {
+  fill: none;
+  stroke: #9fc9dc;
+  stroke-width: 14;
+  stroke-linecap: round;
+}
+.mapa .m-rua {
+  fill: none;
+  stroke: #ffffff;
+  stroke-width: 5;
+  stroke-linecap: round;
+}
+.mapa .m-area {
+  stroke: #0e2833;
+  stroke-width: 1.5;
+  fill-opacity: 0.55;
+}
+.mapa .m-area.sel {
+  stroke-width: 3;
+  fill-opacity: 0.8;
+}
+.mapa .m-nome {
+  font: 700 15px var(--text);
+  fill: #0e2833;
+  paint-order: stroke;
+  stroke: #e7f0f3;
+  stroke-width: 4px;
+  stroke-linejoin: round;
+}
+.mapa .m-rota {
+  fill: none;
+  stroke: #0e2833;
+  stroke-width: 3;
+  stroke-dasharray: 8 6;
+}
+.mapa .m-abr {
+  cursor: pointer;
+}
+.mapa .m-abr circle {
+  fill: #fbfcfc;
+  stroke: #1d6f94;
+  stroke-width: 3;
+  transition: r 0.2s;
+}
+.mapa .m-abr path {
+  fill: #1d6f94;
+}
+.mapa .m-abr.lotado circle {
+  stroke: #c4412c;
+}
+.mapa .m-abr.lotado path {
+  fill: #c4412c;
+}
+.mapa .m-abr:hover circle {
+  stroke-width: 4;
+}
+.mapa .m-abr.sel circle {
+  fill: #f5c518;
+  stroke-width: 4;
+}
+.mapa .m-abr:focus {
+  outline: none;
+}
+.mapa .m-abr:focus-visible circle {
+  stroke: #0e2833;
+  stroke-width: 5;
+}
+.mapa-info {
+  padding: 14px;
+  border-radius: 14px;
+  background: #eef3f5;
+}
+.mapa-info h3 {
+  margin: 0 0 6px;
+}
+.mapa-info p {
+  margin: 4px 0;
+}
+.legenda {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 18px;
+  margin: 12px 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: 14px;
+  color: var(--muted);
+}
+.legenda i {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  margin-right: 6px;
+  vertical-align: -2px;
+  border-radius: 50%;
+}
+.legenda .lg-area {
+  background: #f28a2e;
+  opacity: 0.8;
+}
+.legenda .lg-abr {
+  background: #fbfcfc;
+  border: 3px solid #1d6f94;
+}
+.legenda .lg-rota {
+  width: 22px;
+  height: 0;
+  border-radius: 0;
+  border-top: 3px dashed #0e2833;
+  vertical-align: 3px;
+}
+

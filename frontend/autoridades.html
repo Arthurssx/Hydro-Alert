@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Pluvial · Painel das Autoridades</title>
+<meta name="description" content="Pluvial: painel da Defesa Civil para verificar relatos e ocorrências, definir o nível de alerta das encostas e atualizar os abrigos (demonstração)." />
+<meta name="theme-color" content="#0e2833" />
+<link rel="icon" href="assets/icone.svg" type="image/svg+xml" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,800&family=Instrument+Sans:wght@400;600;700&display=swap" />
+<link rel="stylesheet" href="css/base.css" />
+<link rel="stylesheet" href="css/autoridades.css" />
+</head>
+<body class="mor">
+<a class="skip" href="#conteudo">Ir para o conteúdo</a>
+<header class="mtop">
+  <a class="brand" href="index.html" aria-label="pluvial, página inicial">pluvial</a>
+  <nav aria-label="Principal"><a href="index.html">Início</a><a href="morador.html">Painel do morador</a><a href="autoridades.html" aria-current="page">Autoridades</a><a href="componentes.html">Componentes</a></nav>
+</header>
+
+<main id="conteudo" class="mwrap" tabindex="-1">
+  <p class="kicker">Defesa Civil · acesso restrito na versão real</p>
+  <h1>Painel das Autoridades</h1>
+  <p class="lead">Confira os relatos da página inicial e as ocorrências do painel do morador, marque o que foi verificado, defina o nível de alerta de cada encosta e atualize os abrigos.</p>
+
+  <section class="resumo" aria-label="Resumo">
+    <div class="kpi"><strong id="k-pend">0</strong><span>pendentes de verificação</span></div>
+    <div class="kpi"><strong id="k-verif">0</strong><span>verificados</span></div>
+    <div class="kpi"><strong id="k-desl">0</strong><span>sinais de deslizamento</span></div>
+    <div class="kpi"><strong id="k-max">0</strong><span>encostas em alerta ou acima</span></div>
+  </section>
+
+  <section class="card" aria-labelledby="h-relatos">
+    <div class="head"><h2 id="h-relatos">Relatos e ocorrências</h2><button type="button" class="ghost" id="b-exemplos">Carregar exemplos</button></div>
+    <div class="filtros">
+      <div><label for="f-bairro">Bairro</label><select id="f-bairro"><option value="">Todos os bairros</option></select></div>
+      <div><label for="f-encosta">Encosta</label><select id="f-encosta"><option value="">Todas as encostas</option></select></div>
+      <div><label for="f-tipo">Tipo</label><select id="f-tipo"><option value="">Todos os tipos</option></select></div>
+      <div><label for="f-status">Status</label><select id="f-status"><option value="">Todos</option><option value="pendente">Pendente</option><option value="verificado">Verificado</option></select></div>
+    </div>
+    <p class="contagem" id="contagem" aria-live="polite"></p>
+    <ul class="lista" id="lista"></ul>
+  </section>
+
+  <section class="card" aria-labelledby="h-niveis">
+    <h2 id="h-niveis">Nível de alerta por encosta</h2>
+    <p class="nota">O nível escolhido aqui aparece na hora para o morador, em <a href="morador.html#h-alerta">Meu alerta</a>.</p>
+    <div class="tabela-wrap">
+      <table class="tabela">
+        <thead><tr><th scope="col">Encosta</th><th scope="col">Sinais verificados</th><th scope="col">Nível atual</th><th scope="col">Novo nível</th><th scope="col"><span class="sr">Ação</span></th></tr></thead>
+        <tbody id="tb-niveis"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="card" aria-labelledby="h-abr">
+    <h2 id="h-abr">Situação dos abrigos</h2>
+    <p class="nota">Informe quantas pessoas estão em cada abrigo e clique em atualizar. O morador vê a nova situação e, se o abrigo lotar, recebe a sugestão do mais próximo com vaga.</p>
+    <div class="tabela-wrap">
+      <table class="tabela">
+        <thead><tr><th scope="col">Abrigo</th><th scope="col">Vagas</th><th scope="col">Pessoas agora</th><th scope="col">Situação</th></tr></thead>
+        <tbody id="tb-abrigos"></tbody>
+      </table>
+    </div>
+    <button type="button" class="primary" id="b-abrigos">Atualizar situação dos abrigos</button>
+  </section>
+
+  <p class="fine">Quer ver o lado do morador? Abra o <a href="morador.html#h-alerta">painel do morador</a> em outra aba: ele muda sozinho quando você salva aqui.</p>
+</main>
+
+<footer class="mfoot">
+  Protótipo acadêmico: os dados ficam só neste navegador. · <a href="index.html">Início</a> · <a href="morador.html">Painel do morador</a> · <a href="componentes.html">Componentes</a>
+</footer>
+
+<script src="js/risco.js" defer></script>
+<script src="js/autoridades.js" defer></script>
+</body>
+</html>

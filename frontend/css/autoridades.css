@@ -1,0 +1,137 @@
+/* ==========================================================
+   Painel das Autoridades (autoridades.html)
+   O topo, o conteúdo, os cartões e as listas ficam em base.css.
+   ========================================================== */
+
+/* Linha acima do título */
+.kicker {
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--rain);
+}
+
+/* Números do resumo */
+.resumo {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-top: 8px;
+}
+.kpi {
+  padding: 14px 16px;
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: var(--shadow-card);
+}
+.kpi strong {
+  display: block;
+  font: 800 2.2rem/1.1 var(--display);
+  color: var(--rain);
+}
+.kpi span {
+  font-size: 14px;
+  color: var(--muted);
+}
+
+/* Filtros: quatro seletores lado a lado */
+.filtros {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+.contagem,
+.nota {
+  margin-top: 12px;
+  font-size: 15px;
+  color: var(--muted);
+}
+
+/* Item de relato ou ocorrência */
+.item {
+  grid-template-columns: 1fr auto;
+  align-items: start;
+}
+.item > :not(.acoes) {
+  grid-column: 1;
+}
+.item .acoes {
+  grid-column: 2;
+  grid-row: 1 / span 4;
+  align-self: center;
+}
+.item .acoes button {
+  min-height: 40px;
+  padding: 6px 14px;
+  font-size: 15px;
+}
+.origem {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--rain);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.item.verificado {
+  background: #e9f4ef;
+}
+
+/* Tabelas de níveis e abrigos */
+.tabela-wrap {
+  overflow-x: auto;
+  margin-top: 10px;
+}
+.tabela {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 15px;
+}
+.tabela th {
+  text-align: left;
+  padding: 8px;
+  border-bottom: 2px solid var(--ink);
+  font-size: 14px;
+}
+.tabela td {
+  padding: 8px;
+  border-bottom: 1px solid var(--line);
+  vertical-align: middle;
+}
+.tabela select,
+.tabela input {
+  margin-top: 0;
+  min-width: 140px;
+}
+.tabela input {
+  max-width: 120px;
+  min-width: 90px;
+}
+.tabela .primary {
+  min-height: 40px;
+  padding: 6px 16px;
+  font-size: 15px;
+  white-space: nowrap;
+}
+.nivel-tag {
+  display: inline-block;
+  padding: 3px 12px;
+  border-radius: 99px;
+  font-size: 14px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+@media (max-width: 760px) {
+  .item {
+    grid-template-columns: 1fr;
+  }
+  .item .acoes {
+    grid-column: 1;
+    grid-row: auto;
+  }
+  .resumo,
+  .filtros {
+    grid-template-columns: 1fr 1fr;
+  }
+}
